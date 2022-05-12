@@ -29,4 +29,4 @@ shurjoMukhiDev, shurjomukhidev@gmail.com
 
 ## License
 
-ShurjopaySdk is available under the MIT license. See the LICENSE file for more info.
+ShurjopaySdk is available under the MIT license. See the LICENSE file for more info
