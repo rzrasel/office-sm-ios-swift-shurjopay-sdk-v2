@@ -25,7 +25,7 @@ pod 'ShurjopaySdk'
 
 ## Author
 
-shurjoMukhiDev, shurjomukhidev@gmail.com
+Rz Rasel
 
 ## License
 
