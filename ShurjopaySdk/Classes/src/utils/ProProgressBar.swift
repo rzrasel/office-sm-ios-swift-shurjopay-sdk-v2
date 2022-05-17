@@ -77,11 +77,19 @@ public class ProProgressBar: UIVisualEffectView {
         }
     }
 
-    func show() {
+    /*func show() {
         self.isHidden = false
+    }*/
+    func show(viewController: UIViewController) {
+        self.isHidden = false
+        viewController.view.addSubview(self)
     }
 
-    func hide() {
+    func hide(viewController: UIViewController) {
         self.isHidden = true
+        //self.removeFromSuperview()
+        if let viewWithTag = viewController.view.viewWithTag(100) {
+            viewWithTag.removeFromSuperview()
+        }
     }
 }

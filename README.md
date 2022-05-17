@@ -1,5 +1,5 @@
-# office-sm-swift-shurjopay-sdk-v2
-Office SM Swift shurjoPay SDK V2
+# office-sm-ios-swift-shurjopay-sdk-v2
+Office SM iOS Swift shurjoPay SDK V2
 
 # ShurjopaySdk
 
@@ -30,3 +30,5 @@ Rz Rasel
 ## License
 
 ShurjopaySdk is available under the MIT license. See the LICENSE file for more info
+
+Android Studio MacBook Pro: d5N3zwFKoh1k6yVcMSmg2MuC060mkS-[ghp_Ec7xmc]

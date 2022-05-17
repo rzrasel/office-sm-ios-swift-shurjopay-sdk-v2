@@ -18,6 +18,11 @@
 		5223F2D6282BDC7A00357087 /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5223F2D5282BDC7A00357087 /* ResponseData.swift */; };
 		5223F2D8282BE1A000357087 /* TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5223F2D7282BE1A000357087 /* TransactionData.swift */; };
 		5223F2DA282BE3A500357087 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5223F2D9282BE3A500357087 /* RequestData.swift */; };
+		52B77A08283182AA00646252 /* NetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B77A07283182AA00646252 /* NetConnection.swift */; };
+		52B77A0A2832175C00646252 /* ShurjopaySdkPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B77A092832175C00646252 /* ShurjopaySdkPlugin.swift */; };
+		52B77A0C28321A1800646252 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B77A0B28321A1800646252 /* Utils.swift */; };
+		52B77A0E2832551C00646252 /* ErrorSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B77A0D2832551C00646252 /* ErrorSuccess.swift */; };
+		52B77A1028325AFC00646252 /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B77A0F28325AFC00646252 /* AlertService.swift */; };
 		52D3B065282CF97A008E2A2F /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D3B064282CF97A008E2A2F /* CircularProgressView.swift */; };
 		52D3B067282D0763008E2A2F /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D3B066282D0763008E2A2F /* CircularProgressBar.swift */; };
 		52D3B069282D0A29008E2A2F /* ProProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D3B068282D0A29008E2A2F /* ProProgressBar.swift */; };
@@ -64,6 +69,11 @@
 		5223F2D5282BDC7A00357087 /* ResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
 		5223F2D7282BE1A000357087 /* TransactionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionData.swift; sourceTree = "<group>"; };
 		5223F2D9282BE3A500357087 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
+		52B77A07283182AA00646252 /* NetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetConnection.swift; sourceTree = "<group>"; };
+		52B77A092832175C00646252 /* ShurjopaySdkPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShurjopaySdkPlugin.swift; sourceTree = "<group>"; };
+		52B77A0B28321A1800646252 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		52B77A0D2832551C00646252 /* ErrorSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSuccess.swift; sourceTree = "<group>"; };
+		52B77A0F28325AFC00646252 /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
 		52D3B064282CF97A008E2A2F /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		52D3B066282D0763008E2A2F /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
 		52D3B068282D0A29008E2A2F /* ProProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProProgressBar.swift; sourceTree = "<group>"; };
@@ -160,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				5223F2C9282BCECD00357087 /* ShurjopaySdk.swift */,
+				52B77A092832175C00646252 /* ShurjopaySdkPlugin.swift */,
 			);
 			path = sdk;
 			sourceTree = "<group>";
@@ -172,6 +183,7 @@
 				5223F2D5282BDC7A00357087 /* ResponseData.swift */,
 				5223F2CC282BCECD00357087 /* TokenData.swift */,
 				5223F2D7282BE1A000357087 /* TransactionData.swift */,
+				52B77A0D2832551C00646252 /* ErrorSuccess.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -183,6 +195,9 @@
 				52D3B064282CF97A008E2A2F /* CircularProgressView.swift */,
 				52D3B066282D0763008E2A2F /* CircularProgressBar.swift */,
 				52D3B068282D0A29008E2A2F /* ProProgressBar.swift */,
+				52B77A07283182AA00646252 /* NetConnection.swift */,
+				52B77A0B28321A1800646252 /* Utils.swift */,
+				52B77A0F28325AFC00646252 /* AlertService.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -451,15 +466,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52B77A0E2832551C00646252 /* ErrorSuccess.swift in Sources */,
 				74839F40ACB76352AA01C98BE9281DDB /* ReplaceMe.swift in Sources */,
 				5223F2D6282BDC7A00357087 /* ResponseData.swift in Sources */,
 				52D3B069282D0A29008E2A2F /* ProProgressBar.swift in Sources */,
 				5223F2D8282BE1A000357087 /* TransactionData.swift in Sources */,
 				5223F2CF282BCECD00357087 /* TokenData.swift in Sources */,
+				52B77A0C28321A1800646252 /* Utils.swift in Sources */,
 				36D0730C32E9C8310A1C5CD287A1AAEC /* ShurjopaySdk-dummy.m in Sources */,
 				52D3B067282D0763008E2A2F /* CircularProgressBar.swift in Sources */,
+				52B77A0A2832175C00646252 /* ShurjopaySdkPlugin.swift in Sources */,
+				52B77A08283182AA00646252 /* NetConnection.swift in Sources */,
 				5223F2D4282BD8C900357087 /* CheckoutData.swift in Sources */,
 				5223F2CD282BCECD00357087 /* ShurjopaySdk.swift in Sources */,
+				52B77A1028325AFC00646252 /* AlertService.swift in Sources */,
 				5223F2DA282BE3A500357087 /* RequestData.swift in Sources */,
 				52D3B065282CF97A008E2A2F /* CircularProgressView.swift in Sources */,
 				5223F2D2282BD04C00357087 /* AppConstants.swift in Sources */,

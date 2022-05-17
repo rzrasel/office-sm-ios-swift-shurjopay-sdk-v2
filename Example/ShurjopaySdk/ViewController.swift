@@ -10,6 +10,7 @@ import UIKit
 import ShurjopaySdk
 
 class ViewController: UIViewController {
+    let alertService = AlertService()
     var shurjopaySdk: ShurjopaySdk?
 
     override func viewDidLoad() {
@@ -50,13 +51,26 @@ class ViewController: UIViewController {
             value3:             "value3",
             value4:             "value4"
         )
-        shurjopaySdk = ShurjopaySdk()
+        shurjopaySdk = ShurjopaySdk(onSuccess: onSuccess, onFailed: onFailed)
         shurjopaySdk?.makePayment(
             viewController: self,
             sdkType:        AppConstants.SDK_TYPE_SANDBOX,
             requestData:    requestData
         )
     }
-
+    func onSuccess(message: ErrorSuccess) {
+        if(message.esType == ErrorSuccess.ESType.INTERNET_SUCCESS) {
+            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
+        } else {
+            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
+        }
+    }
+    func onFailed(message: ErrorSuccess) {
+        if(message.esType == ErrorSuccess.ESType.INTERNET_ERROR) {
+            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
+            //alertService.alert(viewController: self, message: message.message!)
+        } else {
+            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
+        }
+    }
 }
-
