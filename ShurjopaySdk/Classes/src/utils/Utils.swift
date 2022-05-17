@@ -13,3 +13,7 @@ class Utils {
         viewController.view.addSubview(progressView)
     }
 }
+public enum HTTPMethod: String {
+    case POST   = "POST"
+    case GET    = "GET"
+}

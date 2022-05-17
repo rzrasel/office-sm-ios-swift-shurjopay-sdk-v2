@@ -29,8 +29,9 @@ class ShurjopaySdkPlugin {
         self.onProgressView?(true)
         self.onProgressView?(false)
     }
-    @available(iOS 13.0.0, *)
-    func getToken() async throws {
+    //@available(iOS 13.0.0, *)
+    func getToken() {
+        let url = URL(string: "https://httpbin.org/post")!
     }
 }
 // Internet check
