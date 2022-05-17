@@ -31,4 +31,4 @@ Rz Rasel
 
 ShurjopaySdk is available under the MIT license. See the LICENSE file for more info
 
-Android Studio MacBook Pro: d5N3zwFKoh1k6yVcMSmg2MuC060mkS-[ghp_Ec7xmc]
+Android Studio MacBook Pro: <kbd>d5N3zwFKoh1k6yVcMSmg2MuC060mkS-[ghp_Ec7xmc]</kbd>
