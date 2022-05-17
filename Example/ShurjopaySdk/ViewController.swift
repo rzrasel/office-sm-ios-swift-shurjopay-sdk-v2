@@ -17,7 +17,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         //AppConstants.SDK_TYPE_SANDBOX
         // Do any additional setup after loading the view, typically from a nib.
-        onShurjoPaySdk(viewController: self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,7 +24,60 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onClickShurjoPay(_ sender: UIButton) {
+        onShurjoPaySdk(viewController: self)
+    }
+    
     func onShurjoPaySdk(viewController: UIViewController) {
+        let orderId = Int.random(in: 0 ... 1000)
+        let requestData = RequestData(
+            username:           "paypointDigital",
+            password:           "paypsy6q#jm#5jx5",
+            prefix:             "PPD",
+            currency:           "BDT",
+            amount:             1,
+            orderId:            "PPD\(orderId)",
+            discountAmount:     0,
+            discPercent:        0,
+            customerName:       "shurjoMukhi Ltd SDK Test",
+            customerPhone:      "01711486915",
+            customerEmail:      "customerEmail",
+            customerAddress:    "customerAddress",
+            customerCity:       "customerCity",
+            customerState:      "customerState",
+            customerPostcode:   "customerPostcode",
+            customerCountry:    "customerCountry",
+            returnUrl:          "https://www.sandbox.shurjopayment.com/return_url",
+            cancelUrl:          "https://www.sandbox.shurjopayment.com/cancel_url",
+            clientIp:           "127.0.0.1",
+            value1:             "value1",
+            value2:             "value2",
+            value3:             "value3",
+            value4:             "value4"
+        )
+        shurjopaySdk = ShurjopaySdk(onSuccess: onSuccess, onFailed: onFailed)
+        shurjopaySdk?.makePayment(
+            viewController: self,
+            sdkType:        AppConstants.SDK_TYPE_SANDBOX,
+            requestData:    requestData
+        )
+    }
+    func onSuccess(message: ErrorSuccess) {
+        if(message.esType == ErrorSuccess.ESType.INTERNET_SUCCESS) {
+            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
+        } else {
+            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
+        }
+    }
+    func onFailed(message: ErrorSuccess) {
+        if(message.esType == ErrorSuccess.ESType.INTERNET_ERROR) {
+            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
+            //alertService.alert(viewController: self, message: message.message!)
+        } else {
+            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
+        }
+    }
+    func onShurjoPaySdkOld01(viewController: UIViewController) {
         let requestData = RequestData(
             username:           "username",
             password:           "password",
@@ -57,20 +109,5 @@ class ViewController: UIViewController {
             sdkType:        AppConstants.SDK_TYPE_SANDBOX,
             requestData:    requestData
         )
-    }
-    func onSuccess(message: ErrorSuccess) {
-        if(message.esType == ErrorSuccess.ESType.INTERNET_SUCCESS) {
-            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
-        } else {
-            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
-        }
-    }
-    func onFailed(message: ErrorSuccess) {
-        if(message.esType == ErrorSuccess.ESType.INTERNET_ERROR) {
-            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
-            //alertService.alert(viewController: self, message: message.message!)
-        } else {
-            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
-        }
     }
 }

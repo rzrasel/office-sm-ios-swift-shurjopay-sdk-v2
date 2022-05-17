@@ -27,9 +27,11 @@ public class ShurjopaySdk {
     //
     public func makePayment(viewController: UIViewController, sdkType: String, requestData: RequestData) {
         self.viewController = viewController
-        shurjopaySdkPlugin = ShurjopaySdkPlugin(onSuccess: self.onSuccess!, onFailed: self.onFailed!)
-        shurjopaySdkPlugin?.onSDKPlugin(onProgressView: self.onProgressView)
-        showProgressView()
+        shurjopaySdkPlugin = ShurjopaySdkPlugin(onSuccess: self.onSuccess!,
+                                                onProgressView: self.onProgressView,
+                                                onFailed: self.onFailed!)
+        shurjopaySdkPlugin?.onSDKPlugin(sdkType: sdkType, requestData: requestData)
+        //showProgressView()
     }
     func onProgressView(isShow: Bool) {
         if(isShow) {
