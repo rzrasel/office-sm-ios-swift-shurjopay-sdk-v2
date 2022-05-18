@@ -30,7 +30,7 @@ public class ShurjopaySdk {
         shurjopaySdkPlugin = ShurjopaySdkPlugin(onSuccess: self.onSuccess!,
                                                 onProgressView: self.onProgressView,
                                                 onFailed: self.onFailed!)
-        shurjopaySdkPlugin?.onSDKPlugin(sdkType: sdkType, requestData: requestData)
+        shurjopaySdkPlugin?.onSDKPlugin(viewController: viewController, sdkType: sdkType, requestData: requestData)
         //showProgressView()
     }
     func onProgressView(isShow: Bool) {

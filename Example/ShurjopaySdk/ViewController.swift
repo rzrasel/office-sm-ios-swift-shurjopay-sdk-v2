@@ -26,13 +26,18 @@ class ViewController: UIViewController {
     
     @IBAction func onClickShurjoPay(_ sender: UIButton) {
         onShurjoPaySdk(viewController: self)
+        //if UserDefaults.standard.string(forKey: "username") != nil {
+        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainTabBarController = storyboard.instantiateViewController(withIdentifier: "viewControllerSecond")
+        mainTabBarController.modalPresentationStyle = .fullScreen
+        self.present(mainTabBarController, animated: true, completion: nil)*/
     }
     
     func onShurjoPaySdk(viewController: UIViewController) {
         let orderId = Int.random(in: 0 ... 1000)
         let requestData = RequestData(
-            username:           "paypointDigital",
-            password:           "paypsy6q#jm#5jx5",
+            username:           "sp_sandbox",
+            password:           "pyyk97hu&6u6",
             prefix:             "PPD",
             currency:           "BDT",
             amount:             1,

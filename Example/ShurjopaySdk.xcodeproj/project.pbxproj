@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		344E6E3697F3CDED15E04347 /* Pods_ShurjopaySdk_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82445C06ACFBE8E84E831C69 /* Pods_ShurjopaySdk_Example.framework */; };
+		5232564528351D3400763E82 /* ViewControllerSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5232564428351D3400763E82 /* ViewControllerSecond.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 		039B3BC9F2F885447DD94EAC /* Pods-ShurjopaySdk_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShurjopaySdk_Tests.debug.xcconfig"; path = "Target Support Files/Pods-ShurjopaySdk_Tests/Pods-ShurjopaySdk_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		169B0AC5BB631C059DA6FDA0 /* Pods-ShurjopaySdk_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShurjopaySdk_Example.debug.xcconfig"; path = "Target Support Files/Pods-ShurjopaySdk_Example/Pods-ShurjopaySdk_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		2419ECC0BD211AF3FB0BEDB9 /* Pods_ShurjopaySdk_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShurjopaySdk_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5232564428351D3400763E82 /* ViewControllerSecond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSecond.swift; sourceTree = "<group>"; };
 		523C65041FAABA25038BD3B6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* ShurjopaySdk_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShurjopaySdk_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				5232564428351D3400763E82 /* ViewControllerSecond.swift */,
 			);
 			name = "Example for ShurjopaySdk";
 			path = ShurjopaySdk;
@@ -331,6 +334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				5232564528351D3400763E82 /* ViewControllerSecond.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
