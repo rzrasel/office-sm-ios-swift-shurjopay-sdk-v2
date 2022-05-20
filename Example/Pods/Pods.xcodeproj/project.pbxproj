@@ -22,6 +22,7 @@
 		52325648283529BE00763E82 /* SmStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52325647283529BE00763E82 /* SmStoryboard.storyboard */; };
 		52825DAD2833889A00FFC821 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52825DAC2833889A00FFC821 /* ApiClient.swift */; };
 		52825DAF2833890100FFC821 /* ApiInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52825DAE2833890100FFC821 /* ApiInterface.swift */; };
+		52B5B47A283809400000FFCD /* UIProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B5B479283809400000FFCD /* UIProperty.swift */; };
 		52B77A08283182AA00646252 /* NetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B77A07283182AA00646252 /* NetConnection.swift */; };
 		52B77A0A2832175C00646252 /* ShurjopaySdkPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B77A092832175C00646252 /* ShurjopaySdkPlugin.swift */; };
 		52B77A0C28321A1800646252 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B77A0B28321A1800646252 /* Utils.swift */; };
@@ -77,6 +78,7 @@
 		52325647283529BE00763E82 /* SmStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SmStoryboard.storyboard; sourceTree = "<group>"; };
 		52825DAC2833889A00FFC821 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		52825DAE2833890100FFC821 /* ApiInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiInterface.swift; sourceTree = "<group>"; };
+		52B5B479283809400000FFCD /* UIProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProperty.swift; sourceTree = "<group>"; };
 		52B77A07283182AA00646252 /* NetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetConnection.swift; sourceTree = "<group>"; };
 		52B77A092832175C00646252 /* ShurjopaySdkPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShurjopaySdkPlugin.swift; sourceTree = "<group>"; };
 		52B77A0B28321A1800646252 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				5223F2CC282BCECD00357087 /* TokenData.swift */,
 				5223F2D7282BE1A000357087 /* TransactionData.swift */,
 				52B77A0D2832551C00646252 /* ErrorSuccess.swift */,
+				52B5B479283809400000FFCD /* UIProperty.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				52825DAD2833889A00FFC821 /* ApiClient.swift in Sources */,
 				5223F2D4282BD8C900357087 /* CheckoutData.swift in Sources */,
 				5223F2CD282BCECD00357087 /* ShurjopaySdk.swift in Sources */,
+				52B5B47A283809400000FFCD /* UIProperty.swift in Sources */,
 				52B77A1028325AFC00646252 /* AlertService.swift in Sources */,
 				5223F2DA282BE3A500357087 /* RequestData.swift in Sources */,
 				52D3B065282CF97A008E2A2F /* CircularProgressView.swift in Sources */,

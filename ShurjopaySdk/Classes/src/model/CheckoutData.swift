@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CheckoutData {
+struct CheckoutData: Codable {
     public var checkoutUrl:         String?
     public var amount:              Double?
     public var currency:            String?
@@ -21,6 +21,24 @@ struct CheckoutData {
     public var clientIp:            String?
     public var intent:              String?
     public var transactionStatus:   String?
+    
+    enum CodingKeys: String, CodingKey {
+        case checkoutUrl = "checkout_url"
+        case amount = "amount"
+        case currency = "currency"
+        case spOrderId = "sp_order_id"
+        case customerOrderId = "customer_order_id"
+        //
+        case customerName = "customer_name"
+        case customerAddress = "customer_address"
+        case customerCity = "customer_city"
+        case customerPhone = "customer_phone"
+        case customerEmail = "customer_email"
+        case clientIp = "client_ip"
+        //
+        case intent = "intent"
+        case transactionStatus = "transactionStatus"
+    }
 }
 /*public struct CheckoutData {
     public var token:               String

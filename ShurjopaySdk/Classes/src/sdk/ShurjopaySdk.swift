@@ -10,14 +10,15 @@ import Foundation
 public class ShurjopaySdk {
     var shurjopaySdkPlugin: ShurjopaySdkPlugin?
     //var onFailed: ((String) -> Void)?
-    public typealias onSuccess = (ErrorSuccess) -> Void
-    public typealias onFailed = (ErrorSuccess) -> Void
+    public typealias onSuccess  = (_ transactionData: TransactionData?, ErrorSuccess) -> Void
+    public typealias onFailed   = (ErrorSuccess) -> Void
     //typealias onProgressView = (Bool) -> Void
-    var onSuccess: onSuccess?
-    var onFailed: onFailed?
+    var onSuccess:      onSuccess?
+    var onFailed:       onFailed?
     //var onProgressView: onProgressView?
+    var uiProperty:     UIProperty?
     var viewController: UIViewController?
-    var progressBar: ProProgressBar?
+    var progressBar:    ProProgressBar?
     //
     //public init() {}
     public init(onSuccess: @escaping onSuccess, onFailed: @escaping onFailed) {
@@ -25,12 +26,13 @@ public class ShurjopaySdk {
         self.onFailed = onFailed
     }
     //
-    public func makePayment(viewController: UIViewController, sdkType: String, requestData: RequestData) {
-        self.viewController = viewController
+    public func makePayment(uiProperty: UIProperty, sdkType: String, requestData: RequestData) {
+        self.uiProperty = uiProperty
+        self.viewController = uiProperty.viewController
         shurjopaySdkPlugin = ShurjopaySdkPlugin(onSuccess: self.onSuccess!,
                                                 onProgressView: self.onProgressView,
                                                 onFailed: self.onFailed!)
-        shurjopaySdkPlugin?.onSDKPlugin(viewController: viewController, sdkType: sdkType, requestData: requestData)
+        shurjopaySdkPlugin?.onSDKPlugin(uiProperty: uiProperty, sdkType: sdkType, requestData: requestData)
         //showProgressView()
     }
     func onProgressView(isShow: Bool) {
@@ -48,39 +50,4 @@ public class ShurjopaySdk {
         progressBar?.hide(viewController: viewController!)
         //progressBar?.removeFromSuperview()
     }
-    /*public func makePaymentOld02(viewController: UIViewController, sdkType: String, requestData: RequestData) {
-        guard NetConnection.isConnected() == true else {
-            self.onFailed?(ErrorSuccess(
-                message: "Net connection failed",
-                esType: ErrorSuccess.ESType.INTERNET_ERROR
-            ))
-            //print("Net connection failed")
-            return
-        }
-        self.onSuccess?(ErrorSuccess(
-            message: "Net connected",
-            esType: ErrorSuccess.ESType.INTERNET_SUCCESS
-        ))
-        //print("Net connected")
-        //shurjopaySdkPlugin = ShurjopaySdkPlugin(onSuccess: self.onSuccess!, onFailed: self.onFailed!)
-        //shurjopaySdkPlugin?.onCheck()
-    }*/
-    /*public func makePaymentOld01(viewController: UIViewController, sdkType: String, requestData: RequestData) {
-        //Utils.showProgressBar(viewController: viewController)
-        if(!NetConnection.isConnected()) {
-            print("Net connection failed")
-            return
-        }
-        print("Net connected")
-    }*/
 }
-
-/*
-WLAMA - Wite label ATM merchant acquiring
-Application Development Requirements
-------------------------------------
-QR
- - QR WLAMA
- - Document management
- - PRA Acount - Mobile wallet
-*/

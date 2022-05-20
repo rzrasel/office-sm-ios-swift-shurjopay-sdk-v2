@@ -10,15 +10,17 @@ import UIKit
 
 class ShurjopaySdkPlugin {
     //
-    typealias onSuccess         = (ErrorSuccess) -> Void
+    typealias onSuccess         = (_ transactionData: TransactionData?, ErrorSuccess) -> Void
     typealias onFailed          = (ErrorSuccess) -> Void
     typealias onProgressView    = (Bool) -> Void
     var onSuccess:      onSuccess?
     var onFailed:       onFailed?
     var onProgressView: onProgressView?
+    var uiProperty:     UIProperty?
     var viewController: UIViewController?
-    var requestData: RequestData?
-    var sdkType: String?
+    var progressBar:    ProProgressBar?
+    var requestData:    RequestData?
+    var sdkType:        String?
     //
     //public init() {}
     init(onSuccess: @escaping onSuccess,
@@ -28,15 +30,17 @@ class ShurjopaySdkPlugin {
         self.onProgressView = onProgressView
         self.onFailed       = onFailed
     }
-    func onSDKPlugin(viewController: UIViewController, sdkType: String, requestData: RequestData) {
+    func onSDKPlugin(uiProperty: UIProperty, sdkType: String, requestData: RequestData) {
+        showProgressView()
         guard onCheckInternet() == true else {
             return
         }
         //self.onProgressView?(true)
         //self.onProgressView?(false)
-        self.viewController = viewController
-        self.sdkType = sdkType
-        self.requestData = requestData
+        self.uiProperty     = uiProperty
+        self.viewController = uiProperty.viewController
+        self.sdkType        = sdkType
+        self.requestData    = requestData
         getToken()
     }
     private func getToken() {
@@ -56,13 +60,6 @@ class ShurjopaySdkPlugin {
                 return
             }
             Utils.onPrintResponseData(responseData: data!)
-            /*do {
-                let decoder = JSONDecoder()
-                let tokenData = try decoder.decode(TokenData.self, from: data!)
-                print(tokenData)
-            } catch {
-                print(error.localizedDescription)
-            }*/
             let jsonData    = Utils.getJsonData(responseData: data!)
             let spCode      = jsonData?["sp_code"]
             guard spCode as! String == "200" else {
@@ -125,37 +122,27 @@ class ShurjopaySdkPlugin {
                 return
             }
             Utils.onPrintResponseData(responseData: data!)
-            let jsonData        = Utils.getJsonData(responseData: data!)
-            var checkoutData    = CheckoutData()
-            checkoutData.checkoutUrl        = jsonData!["checkout_url"] as? String
-            checkoutData.amount             = jsonData!["amount"] as? Double
-            checkoutData.currency           = jsonData!["currency"] as? String
-            checkoutData.spOrderId          = jsonData!["sp_order_id"] as? String
-            checkoutData.customerOrderId    = jsonData!["customer_order_id"] as? String
-            checkoutData.customerName       = jsonData!["customer_name"] as? String
-            checkoutData.customerAddress    = jsonData!["customer_address"] as? String
-            checkoutData.customerCity       = jsonData!["customer_city"] as? String
-            checkoutData.customerPhone      = jsonData!["customer_phone"] as? String
-            checkoutData.customerEmail      = jsonData!["customer_email"] as? String
-            checkoutData.clientIp           = jsonData!["client_ip"] as? String
-            checkoutData.intent             = jsonData!["intent"] as? String
-            checkoutData.transactionStatus  = jsonData!["transactionStatus"] as? String
-            //print("DEBUG_LOG_PRINT: RESPONSE_DATA: \(responseData)")
-            self.showWebView(tokenData: tokenData, checkoutData: checkoutData)
+            var checkoutData: CheckoutData?
+            do {
+                let decoder = JSONDecoder()
+                checkoutData = try decoder.decode(CheckoutData.self, from: data!)
+                print("DEBUG_LOG_PRINT: CHECKOUT_DATA: \(String(describing: checkoutData))")
+            } catch {
+                //print(error.localizedDescription)
+                self.onFailed?(ErrorSuccess(
+                    message:    error.localizedDescription,
+                    esType:     ErrorSuccess.ESType.HTTP_ERROR
+                ))
+                return
+            }
+            hideProgressView()
+            self.showWebView(tokenData: tokenData, checkoutData: checkoutData!)
         }
     }
     private func showWebView(tokenData: TokenData, checkoutData: CheckoutData) {
         DispatchQueue.main.async { [self] in
-            /*let modalStyle = UIModalTransitionStyle.crossDissolve
-            let viewController = WebViewContainer()
-            viewController.modalTransitionStyle = modalStyle
-            //viewController.present(viewController, animated: true, completion: nil)
-            viewController.present(viewController, animated: true, completion: nil)*/
-            //let vc = WebViewContainer(nibName: "WebViewContainer", bundle: nil)
-            /*let vc = WebViewContainer()
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)*/
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let sPayViewController = storyboard.instantiateViewController(withIdentifier: "sPayViewController") as! ShurjoPayViewController
+            let storyboard = UIStoryboard(name: uiProperty!.storyboardName, bundle: nil)
+            let sPayViewController = storyboard.instantiateViewController(withIdentifier: uiProperty!.identifier) as! ShurjoPayViewController
             sPayViewController.modalPresentationStyle = .fullScreen
             sPayViewController.setListener(onSuccess: self.onSuccess!,
                                            onProgressView: self.onProgressView!,
@@ -163,6 +150,22 @@ class ShurjopaySdkPlugin {
             sPayViewController.onLoadData(sdkType: sdkType!, tokenData: tokenData, checkoutData: checkoutData)
             self.viewController!.present(sPayViewController, animated: true, completion: nil)
         }
+    }
+    func showProgressView() {
+        DispatchQueue.main.async {
+            self.progressBar = ProProgressBar(label: "Loading...")
+            self.progressBar?.show(viewController: self.viewController!)
+        }
+        /*progressBar = ProProgressBar(label: "Loading...")
+        progressBar?.show(viewController: viewController!)*/
+    }
+    func hideProgressView() {
+        DispatchQueue.main.async {
+            self.progressBar?.hide(viewController: self.viewController!)
+            //self.progressBar?.removeFromSuperview()
+        }
+        //progressBar?.hide(viewController: viewController!)
+        //progressBar?.removeFromSuperview()
     }
 }
 //
@@ -177,7 +180,7 @@ extension ShurjopaySdkPlugin {
             //print("Net connection failed")
             return false
         }
-        self.onSuccess?(ErrorSuccess(
+        self.onSuccess?(nil, ErrorSuccess(
             message:    "Net connected",
             esType:     ErrorSuccess.ESType.INTERNET_SUCCESS
         ))

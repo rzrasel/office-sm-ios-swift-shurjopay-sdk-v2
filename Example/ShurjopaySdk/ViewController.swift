@@ -62,16 +62,18 @@ class ViewController: UIViewController {
         )
         shurjopaySdk = ShurjopaySdk(onSuccess: onSuccess, onFailed: onFailed)
         shurjopaySdk?.makePayment(
-            viewController: self,
+            uiProperty:     UIProperty(viewController: self,
+                                       storyboardName: "Main",
+                                       identifier: "sPayViewController"),
             sdkType:        AppConstants.SDK_TYPE_SANDBOX,
             requestData:    requestData
         )
     }
-    func onSuccess(message: ErrorSuccess) {
+    func onSuccess(transactionData: TransactionData?, message: ErrorSuccess) {
         if(message.esType == ErrorSuccess.ESType.INTERNET_SUCCESS) {
             print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
         } else {
-            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
+            print("DEBUG_LOG_PRINT: TRANSACTION_DATA: \(String(describing: transactionData)) \(String(describing: message.message))")
         }
     }
     func onFailed(message: ErrorSuccess) {
@@ -82,7 +84,7 @@ class ViewController: UIViewController {
             print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
         }
     }
-    func onShurjoPaySdkOld01(viewController: UIViewController) {
+    /*func onShurjoPaySdkOld01(viewController: UIViewController) {
         let requestData = RequestData(
             username:           "username",
             password:           "password",
@@ -114,5 +116,5 @@ class ViewController: UIViewController {
             sdkType:        AppConstants.SDK_TYPE_SANDBOX,
             requestData:    requestData
         )
-    }
+    }*/
 }

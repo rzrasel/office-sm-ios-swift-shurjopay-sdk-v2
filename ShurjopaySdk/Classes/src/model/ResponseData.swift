@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ResponseData {
+struct ResponseData {
     public var checkoutUrl:         String?
     public var amount:              Double?
     public var currency:            String?

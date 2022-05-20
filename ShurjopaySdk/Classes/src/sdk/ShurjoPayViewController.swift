@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 class ShurjoPayViewController: UIViewController {
-    typealias onSuccess         = (ErrorSuccess) -> Void
+    typealias onSuccess         = (_ transactionData: TransactionData?, ErrorSuccess) -> Void
     typealias onFailed          = (ErrorSuccess) -> Void
     typealias onProgressView    = (Bool) -> Void
     var onSuccess:      onSuccess?
@@ -103,7 +103,6 @@ extension ShurjoPayViewController {
                 let decoder = JSONDecoder()
                 transactionDataList = try decoder.decode([TransactionData].self, from: data!)
                 print("DEBUG_LOG_PRINT: TransactionData: \(transactionDataList)")
-                //print("Rows in array: \(tableData.StockByWarehouse.count)")
             }
             catch {
                 //print (error)
@@ -122,7 +121,7 @@ extension ShurjoPayViewController {
             }
             let transactionData: TransactionData = transactionDataList[transactionDataList.count - 1]
             if(transactionData.spCode == 1000) {
-                self.onSuccess?(ErrorSuccess(
+                self.onSuccess?(transactionData, ErrorSuccess(
                     message:    "Transaction success",
                     esType:     ErrorSuccess.ESType.HTTP_SUCCESS
                 ))
