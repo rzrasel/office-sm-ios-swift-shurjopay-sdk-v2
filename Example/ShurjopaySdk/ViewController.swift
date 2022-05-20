@@ -38,10 +38,10 @@ class ViewController: UIViewController {
         let requestData = RequestData(
             username:           "sp_sandbox",
             password:           "pyyk97hu&6u6",
-            prefix:             "PPD",
+            prefix:             "NOK",
             currency:           "BDT",
             amount:             1,
-            orderId:            "PPD\(orderId)",
+            orderId:            "NOK\(orderId)",
             discountAmount:     0,
             discPercent:        0,
             customerName:       "shurjoMukhi Ltd SDK Test",

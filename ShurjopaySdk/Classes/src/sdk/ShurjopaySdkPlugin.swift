@@ -46,7 +46,7 @@ class ShurjopaySdkPlugin {
             "username": requestData?.username ?? "",
             "password": requestData?.password ?? ""
         ]
-        onHttpRequest(httpMethod: HttpMethod.POST, location: tokenUrl, parameters: parameters) { [self]
+        Utils.onHttpRequest(httpMethod: HttpMethod.POST, location: tokenUrl, parameters: parameters, header: nil, isEncoded: true) { [self]
             (data: Data?, error: Error?) in
             guard error == nil else {
                 self.onFailed?(ErrorSuccess(
@@ -115,7 +115,7 @@ class ShurjopaySdkPlugin {
             "value4":               requestData!.value4!,
         ]
         //print("DEBUG_LOG_PRINT: \(parameters)")
-        onHttpRequest(httpMethod: HttpMethod.POST, location: checkoutUrl, parameters: parameters) { [self]
+        Utils.onHttpRequest(httpMethod: HttpMethod.POST, location: checkoutUrl, parameters: parameters, header: nil, isEncoded: true) { [self]
             (data: Data?, error: Error?) in
             guard error == nil else {
                 self.onFailed?(ErrorSuccess(
@@ -126,25 +126,25 @@ class ShurjopaySdkPlugin {
             }
             Utils.onPrintResponseData(responseData: data!)
             let jsonData        = Utils.getJsonData(responseData: data!)
-            var responseData    = ResponseData()
-            responseData.checkoutUrl        = jsonData!["checkout_url"] as? String
-            responseData.amount             = jsonData!["amount"] as? Double
-            responseData.currency           = jsonData!["currency"] as? String
-            responseData.spOrderId          = jsonData!["sp_order_id"] as? String
-            responseData.customerOrderId    = jsonData!["customer_order_id"] as? String
-            responseData.customerName       = jsonData!["customer_name"] as? String
-            responseData.customerAddress    = jsonData!["customer_address"] as? String
-            responseData.customerCity       = jsonData!["customer_city"] as? String
-            responseData.customerPhone      = jsonData!["customer_phone"] as? String
-            responseData.customerEmail      = jsonData!["customer_email"] as? String
-            responseData.clientIp           = jsonData!["client_ip"] as? String
-            responseData.intent             = jsonData!["intent"] as? String
-            responseData.transactionStatus  = jsonData!["transactionStatus"] as? String
+            var checkoutData    = CheckoutData()
+            checkoutData.checkoutUrl        = jsonData!["checkout_url"] as? String
+            checkoutData.amount             = jsonData!["amount"] as? Double
+            checkoutData.currency           = jsonData!["currency"] as? String
+            checkoutData.spOrderId          = jsonData!["sp_order_id"] as? String
+            checkoutData.customerOrderId    = jsonData!["customer_order_id"] as? String
+            checkoutData.customerName       = jsonData!["customer_name"] as? String
+            checkoutData.customerAddress    = jsonData!["customer_address"] as? String
+            checkoutData.customerCity       = jsonData!["customer_city"] as? String
+            checkoutData.customerPhone      = jsonData!["customer_phone"] as? String
+            checkoutData.customerEmail      = jsonData!["customer_email"] as? String
+            checkoutData.clientIp           = jsonData!["client_ip"] as? String
+            checkoutData.intent             = jsonData!["intent"] as? String
+            checkoutData.transactionStatus  = jsonData!["transactionStatus"] as? String
             //print("DEBUG_LOG_PRINT: RESPONSE_DATA: \(responseData)")
-            self.showWebView(tokenData: tokenData, responseData: responseData)
+            self.showWebView(tokenData: tokenData, checkoutData: checkoutData)
         }
     }
-    private func showWebView(tokenData: TokenData, responseData: ResponseData) {
+    private func showWebView(tokenData: TokenData, checkoutData: CheckoutData) {
         DispatchQueue.main.async { [self] in
             /*let modalStyle = UIModalTransitionStyle.crossDissolve
             let viewController = WebViewContainer()
@@ -157,54 +157,15 @@ class ShurjopaySdkPlugin {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let sPayViewController = storyboard.instantiateViewController(withIdentifier: "sPayViewController") as! ShurjoPayViewController
             sPayViewController.modalPresentationStyle = .fullScreen
-            sPayViewController.onLoadData(tokenData: tokenData, responseData: responseData)
+            sPayViewController.setListener(onSuccess: self.onSuccess!,
+                                           onProgressView: self.onProgressView!,
+                                           onFailed: self.onFailed!)
+            sPayViewController.onLoadData(sdkType: sdkType!, tokenData: tokenData, checkoutData: checkoutData)
             self.viewController!.present(sPayViewController, animated: true, completion: nil)
         }
     }
 }
 //
-extension ShurjopaySdkPlugin {
-    func onHttpRequest(httpMethod: HttpMethod,
-                       location: String,
-                       parameters: [String: Any],
-                       completionHandler: @escaping (_ data: Data?, _ error: NSError?) -> Void) {
-        print("DEBUG_LOG_PRINT: Parameters: \(parameters)")
-        let url = URL(string: location)!
-        var request = URLRequest(url: url)
-        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpMethod = httpMethod.rawValue
-        request.httpBody = parameters.percentEncoded()
-        //
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                //print("DEBUG_LOG_PRINT: POST_REQUEST_ERROR: \(error.localizedDescription)")
-                completionHandler(data, error as NSError?)
-                return
-            }
-
-            // ensure there is valid response code returned from this HTTP response
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                //print("DEBUG_LOG_PRINT: Invalid Response received from the server")
-                let httpResponse = response as? HTTPURLResponse
-                let nsError = NSError(domain: "Invalid Response received from the server", code: httpResponse!.statusCode, userInfo: nil)
-                completionHandler(data, nsError)
-                return
-            }
-            guard let responseData = data else {
-                //print("DEBUG_LOG_PRINT: nil Data received from the server")
-                let httpResponse = response as? HTTPURLResponse
-                let nsError = NSError(domain: "nil Data received from the server", code: httpResponse!.statusCode, userInfo: nil)
-                completionHandler(data, nsError)
-                return
-            }
-            completionHandler(responseData, error as NSError?)
-        }
-        task.resume()
-    }
-}
 // Internet check
 extension ShurjopaySdkPlugin {
     func onCheckInternet() -> Bool {
@@ -368,6 +329,48 @@ extension ShurjopaySdkPlugin {
                 ))
                 return
             }
+        }
+        task.resume()
+    }
+}
+extension ShurjopaySdkPlugin {
+    func onHttpRequestOld01(httpMethod: HttpMethod,
+                       location: String,
+                       parameters: [String: Any],
+                       completionHandler: @escaping (_ data: Data?, _ error: NSError?) -> Void) {
+        print("DEBUG_LOG_PRINT: Parameters: \(parameters)")
+        let url = URL(string: location)!
+        var request = URLRequest(url: url)
+        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpMethod = httpMethod.rawValue
+        request.httpBody = parameters.percentEncoded()
+        //
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                //print("DEBUG_LOG_PRINT: POST_REQUEST_ERROR: \(error.localizedDescription)")
+                completionHandler(data, error as NSError?)
+                return
+            }
+
+            // ensure there is valid response code returned from this HTTP response
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                //print("DEBUG_LOG_PRINT: Invalid Response received from the server")
+                let httpResponse = response as? HTTPURLResponse
+                let nsError = NSError(domain: "Invalid Response received from the server", code: httpResponse!.statusCode, userInfo: nil)
+                completionHandler(data, nsError)
+                return
+            }
+            guard let responseData = data else {
+                //print("DEBUG_LOG_PRINT: nil Data received from the server")
+                let httpResponse = response as? HTTPURLResponse
+                let nsError = NSError(domain: "nil Data received from the server", code: httpResponse!.statusCode, userInfo: nil)
+                completionHandler(data, nsError)
+                return
+            }
+            completionHandler(responseData, error as NSError?)
         }
         task.resume()
     }

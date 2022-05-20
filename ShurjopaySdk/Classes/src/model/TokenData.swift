@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct TokenData: Codable {
+struct TokenData: Codable {
     public var username:     String?
     public var password:     String?
     public var token:        String?

@@ -7,7 +7,22 @@
 
 import Foundation
 
-public struct CheckoutData {
+struct CheckoutData {
+    public var checkoutUrl:         String?
+    public var amount:              Double?
+    public var currency:            String?
+    public var spOrderId:           String?
+    public var customerOrderId:     String?
+    public var customerName:        String?
+    public var customerAddress:     String?
+    public var customerCity:        String?
+    public var customerPhone:       String?
+    public var customerEmail:       String?
+    public var clientIp:            String?
+    public var intent:              String?
+    public var transactionStatus:   String?
+}
+/*public struct CheckoutData {
     public var token:               String
     public var storeId:             Int
     public var prefix:              String
@@ -31,4 +46,4 @@ public struct CheckoutData {
     public var value2:              String
     public var value3:              String
     public var value4:              String
-}
+}*/

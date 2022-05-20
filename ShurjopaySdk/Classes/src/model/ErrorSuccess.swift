@@ -20,6 +20,6 @@ public class ErrorSuccess {
         // ES = Error Success
         case SUCCESS, ERROR
         case INTERNET_SUCCESS, INTERNET_ERROR
-        case HTTP_SUCCESS, HTTP_ERROR
+        case HTTP_SUCCESS, HTTP_CANCEL, HTTP_ERROR
     }
 }

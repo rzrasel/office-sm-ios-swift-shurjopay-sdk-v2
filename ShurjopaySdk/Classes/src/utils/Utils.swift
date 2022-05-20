@@ -71,3 +71,72 @@ extension CharacterSet {
         return allowed
     }()
 }
+public extension String {
+    func contains(find: String) -> Bool{
+        return self.range(of: find) != nil
+    }
+    func containsIgnoringCase(find: String) -> Bool{
+        return self.range(of: find, options: .caseInsensitive) != nil
+    }
+}
+extension Utils {
+    static func onHttpRequest(httpMethod: HttpMethod,
+                              location: String,
+                              parameters: [String: Any],
+                              header: String?,
+                              isEncoded: Bool,
+                              completionHandler: @escaping (_ data: Data?, _ error: NSError?) -> Void) {
+        print("DEBUG_LOG_PRINT: Parameters: \(parameters)")
+        let url = URL(string: location)!
+        var request = URLRequest(url: url)
+        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        if(header != nil) {
+            let headers: [String: String] = [
+                "Content-Type": "application/json",
+                "Authorization": header!
+            ]
+            print("DEBUG_LOG_PRINT: Header: \(String(describing: headers))")
+            request.setValue(header, forHTTPHeaderField: "Authorization")
+            //request.allHTTPHeaderFields = headers
+            //let str = String(decoding: parameters.percentEncoded()!, as: UTF8.self)
+            //request.setValue(str, forHTTPHeaderField: "data")
+        }
+        request.httpMethod = httpMethod.rawValue
+        if(isEncoded) {
+            request.httpBody = parameters.percentEncoded()
+        } else {
+            guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
+                return
+            }
+            request.httpBody = httpBody
+        }
+        //
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                //print("DEBUG_LOG_PRINT: POST_REQUEST_ERROR: \(error.localizedDescription)")
+                completionHandler(data, error as NSError?)
+                return
+            }
+            // ensure there is valid response code returned from this HTTP response
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                //print("DEBUG_LOG_PRINT: Invalid Response received from the server")
+                let httpResponse = response as? HTTPURLResponse
+                let nsError = NSError(domain: "Invalid Response received from the server", code: httpResponse!.statusCode, userInfo: nil)
+                completionHandler(data, nsError)
+                return
+            }
+            guard let responseData = data else {
+                //print("DEBUG_LOG_PRINT: nil Data received from the server")
+                let httpResponse = response as? HTTPURLResponse
+                let nsError = NSError(domain: "nil Data received from the server", code: httpResponse!.statusCode, userInfo: nil)
+                completionHandler(data, nsError)
+                return
+            }
+            completionHandler(responseData, error as NSError?)
+        }
+        task.resume()
+    }
+}
