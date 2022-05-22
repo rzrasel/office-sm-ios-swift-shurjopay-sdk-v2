@@ -22,14 +22,14 @@ public class ShurjopaySdk {
     //
     //public init() {}
     public init(onSuccess: @escaping onSuccess, onFailed: @escaping onFailed) {
-        self.onSuccess = onSuccess
-        self.onFailed = onFailed
+        self.onSuccess  = onSuccess
+        self.onFailed   = onFailed
     }
     //
     public func makePayment(uiProperty: UIProperty, sdkType: String, requestData: RequestData) {
-        self.uiProperty = uiProperty
+        self.uiProperty     = uiProperty
         self.viewController = uiProperty.viewController
-        shurjopaySdkPlugin = ShurjopaySdkPlugin(onSuccess: self.onSuccess!,
+        shurjopaySdkPlugin  = ShurjopaySdkPlugin(onSuccess: self.onSuccess!,
                                                 onProgressView: self.onProgressView,
                                                 onFailed: self.onFailed!)
         shurjopaySdkPlugin?.onSDKPlugin(uiProperty: uiProperty, sdkType: sdkType, requestData: requestData)

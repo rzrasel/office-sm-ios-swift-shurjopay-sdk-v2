@@ -19,7 +19,6 @@
 		5223F2D8282BE1A000357087 /* TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5223F2D7282BE1A000357087 /* TransactionData.swift */; };
 		5223F2DA282BE3A500357087 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5223F2D9282BE3A500357087 /* RequestData.swift */; };
 		523256432835189F00763E82 /* ShurjoPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523256422835189F00763E82 /* ShurjoPayViewController.swift */; };
-		52325648283529BE00763E82 /* SmStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52325647283529BE00763E82 /* SmStoryboard.storyboard */; };
 		52825DAD2833889A00FFC821 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52825DAC2833889A00FFC821 /* ApiClient.swift */; };
 		52825DAF2833890100FFC821 /* ApiInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52825DAE2833890100FFC821 /* ApiInterface.swift */; };
 		52B5B47A283809400000FFCD /* UIProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B5B479283809400000FFCD /* UIProperty.swift */; };
@@ -28,8 +27,6 @@
 		52B77A0C28321A1800646252 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B77A0B28321A1800646252 /* Utils.swift */; };
 		52B77A0E2832551C00646252 /* ErrorSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B77A0D2832551C00646252 /* ErrorSuccess.swift */; };
 		52B77A1028325AFC00646252 /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B77A0F28325AFC00646252 /* AlertService.swift */; };
-		52D3B065282CF97A008E2A2F /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D3B064282CF97A008E2A2F /* CircularProgressView.swift */; };
-		52D3B067282D0763008E2A2F /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D3B066282D0763008E2A2F /* CircularProgressBar.swift */; };
 		52D3B069282D0A29008E2A2F /* ProProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D3B068282D0A29008E2A2F /* ProProgressBar.swift */; };
 		56B02A67F1129F6DB7DEC5817AC5B39D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
 		74839F40ACB76352AA01C98BE9281DDB /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93E6ED72045044747E9AFA2251681C5 /* ReplaceMe.swift */; };
@@ -75,7 +72,6 @@
 		5223F2D7282BE1A000357087 /* TransactionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionData.swift; sourceTree = "<group>"; };
 		5223F2D9282BE3A500357087 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
 		523256422835189F00763E82 /* ShurjoPayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShurjoPayViewController.swift; sourceTree = "<group>"; };
-		52325647283529BE00763E82 /* SmStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SmStoryboard.storyboard; sourceTree = "<group>"; };
 		52825DAC2833889A00FFC821 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		52825DAE2833890100FFC821 /* ApiInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiInterface.swift; sourceTree = "<group>"; };
 		52B5B479283809400000FFCD /* UIProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProperty.swift; sourceTree = "<group>"; };
@@ -84,8 +80,6 @@
 		52B77A0B28321A1800646252 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		52B77A0D2832551C00646252 /* ErrorSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSuccess.swift; sourceTree = "<group>"; };
 		52B77A0F28325AFC00646252 /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
-		52D3B064282CF97A008E2A2F /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
-		52D3B066282D0763008E2A2F /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
 		52D3B068282D0A29008E2A2F /* ProProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProProgressBar.swift; sourceTree = "<group>"; };
 		5F3A02253C94C349255A2183C7693E63 /* ShurjopaySdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ShurjopaySdk.debug.xcconfig; sourceTree = "<group>"; };
 		6007B7A73E578E7453FE7F5ED1184E89 /* Pods-ShurjopaySdk_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ShurjopaySdk_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -207,8 +201,6 @@
 			isa = PBXGroup;
 			children = (
 				5223F2D1282BD04C00357087 /* AppConstants.swift */,
-				52D3B064282CF97A008E2A2F /* CircularProgressView.swift */,
-				52D3B066282D0763008E2A2F /* CircularProgressBar.swift */,
 				52D3B068282D0A29008E2A2F /* ProProgressBar.swift */,
 				52B77A07283182AA00646252 /* NetConnection.swift */,
 				52B77A0B28321A1800646252 /* Utils.swift */,
@@ -220,7 +212,6 @@
 		523256462835298900763E82 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				52325647283529BE00763E82 /* SmStoryboard.storyboard */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -449,7 +440,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52325648283529BE00763E82 /* SmStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,7 +490,6 @@
 				5223F2CF282BCECD00357087 /* TokenData.swift in Sources */,
 				52B77A0C28321A1800646252 /* Utils.swift in Sources */,
 				36D0730C32E9C8310A1C5CD287A1AAEC /* ShurjopaySdk-dummy.m in Sources */,
-				52D3B067282D0763008E2A2F /* CircularProgressBar.swift in Sources */,
 				52B77A0A2832175C00646252 /* ShurjopaySdkPlugin.swift in Sources */,
 				52B77A08283182AA00646252 /* NetConnection.swift in Sources */,
 				52825DAD2833889A00FFC821 /* ApiClient.swift in Sources */,
@@ -509,7 +498,6 @@
 				52B5B47A283809400000FFCD /* UIProperty.swift in Sources */,
 				52B77A1028325AFC00646252 /* AlertService.swift in Sources */,
 				5223F2DA282BE3A500357087 /* RequestData.swift in Sources */,
-				52D3B065282CF97A008E2A2F /* CircularProgressView.swift in Sources */,
 				5223F2D2282BD04C00357087 /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

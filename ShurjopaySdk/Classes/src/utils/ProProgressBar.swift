@@ -16,6 +16,7 @@ public class ProProgressBar: UIVisualEffectView {
     }
 
     let activityIndictor:   UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+    //var activityIndictor:   UIActivityIndicatorView?
     let label:              UILabel                 = UILabel()
     let blurEffect                                  = UIBlurEffect(style: .light)
     let vibrancyView:       UIVisualEffectView

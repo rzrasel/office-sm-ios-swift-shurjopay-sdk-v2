@@ -71,17 +71,17 @@ class ViewController: UIViewController {
     }
     func onSuccess(transactionData: TransactionData?, message: ErrorSuccess) {
         if(message.esType == ErrorSuccess.ESType.INTERNET_SUCCESS) {
-            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
+            print("DEBUG_LOG_PRINT: INTERNET SUCCESS \(String(describing: message.message))")
         } else {
-            print("DEBUG_LOG_PRINT: TRANSACTION_DATA: \(String(describing: transactionData)) \(String(describing: message.message))")
+            print("DEBUG_LOG_PRINT: HTTP SUCCESS TRANSACTION_DATA: \(String(describing: transactionData)) \(String(describing: message.message))")
         }
     }
     func onFailed(message: ErrorSuccess) {
         if(message.esType == ErrorSuccess.ESType.INTERNET_ERROR) {
-            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
+            print("DEBUG_LOG_PRINT: INTERNET ERROR \(String(describing: message.message))")
             //alertService.alert(viewController: self, message: message.message!)
         } else {
-            print("DEBUG_LOG_PRINT: \(String(describing: message.message))")
+            print("DEBUG_LOG_PRINT: HTTP ERROR \(String(describing: message.message))")
         }
     }
     /*func onShurjoPaySdkOld01(viewController: UIViewController) {

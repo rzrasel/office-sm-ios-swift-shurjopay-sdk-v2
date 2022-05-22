@@ -16,14 +16,13 @@ class ShurjoPayViewController: UIViewController {
     var onSuccess:      onSuccess?
     var onFailed:       onFailed?
     var onProgressView: onProgressView?
-    private let webView = WKWebView()
-    private var tokenData: TokenData?
-    private var checkoutData: CheckoutData?
-    private var sdkType: String?
+    private let webView         = WKWebView()
+    private var tokenData:      TokenData?
+    private var checkoutData:   CheckoutData?
+    private var sdkType:        String?
     //
     override func viewDidLoad() {
         super.viewDidLoad()
-        //let viewController = WebViewContainer()
         onCreateView()
     }
     func setListener(onSuccess: @escaping onSuccess,
@@ -34,9 +33,9 @@ class ShurjoPayViewController: UIViewController {
         self.onFailed       = onFailed
     }
     func onLoadData(sdkType: String, tokenData: TokenData, checkoutData: CheckoutData) {
-        self.sdkType = sdkType
-        self.tokenData = tokenData
-        self.checkoutData = checkoutData
+        self.sdkType        = sdkType
+        self.tokenData      = tokenData
+        self.checkoutData   = checkoutData
         onLoad(location: checkoutData.checkoutUrl!)
     }
     private func onCreateView() {
@@ -55,7 +54,7 @@ class ShurjoPayViewController: UIViewController {
 }
 extension ShurjoPayViewController: WKNavigationDelegate, UIWebViewDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        print("Finished navigating to url \(String(describing: webView.url))")
+        //print("Finished navigating to url \(String(describing: webView.url))")
         /*if ((webView.url?.absoluteString.contains("facebook.com")) != nil) {
             // do something here
         }*/
@@ -96,13 +95,13 @@ extension ShurjoPayViewController {
                 ))
                 return
             }
-            let str = String(decoding: data!, as: UTF8.self)
-            print("DEBUG_LOG_PRINT: DATA_RESPONS \(str)")
+            /*let str = String(decoding: data!, as: UTF8.self)
+            print("DEBUG_LOG_PRINT: DATA_RESPONS \(str)")*/
             var transactionDataList: [TransactionData] = []
             do {
                 let decoder = JSONDecoder()
                 transactionDataList = try decoder.decode([TransactionData].self, from: data!)
-                print("DEBUG_LOG_PRINT: TransactionData: \(transactionDataList)")
+                //print("DEBUG_LOG_PRINT: TransactionData: \(transactionDataList)")
             }
             catch {
                 //print (error)
@@ -133,12 +132,6 @@ extension ShurjoPayViewController {
                 ))
                 return
             }
-            /*guard let httpData = data![0] else {
-                return
-            }*/
-            //let arrJson = try NSJSONSerialization.dataWithJSONObject(data, options: NSJSONWritingOptions.PrettyPrinted)
-            //let arrJson = try JSONSerialization.jsonObject(with: data!, options: [])
-            /*Utils.onPrintResponseData(responseData: jsonData[0])*/
         }
     }
 }
