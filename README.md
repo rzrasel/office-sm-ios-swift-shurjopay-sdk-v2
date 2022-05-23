@@ -27,6 +27,14 @@ pod 'ShurjopaySdk'
 
 Rz Rasel
 
+### CocoaPods Trunk
+- Trunk Me: <kbd>pod trunk me</kbd>
+- Pod Lint: <kbd>pod spec lint [NAME.podspec]/pod lib lint</kbd>
+- Trunk Register: <kbd>pod trunk register rzrasel@rzrasel.org 'Rz Rasel'</kbd>
+- Trunk Push: <kbd>pod trunk push [NAME.podspec]</kbd>
+- <kbd></kbd>
+- <kbd></kbd>
+
 ## License
 
 ShurjopaySdk is available under the MIT license. See the LICENSE file for more info
