@@ -35,7 +35,7 @@ Rz Rasel
 - Trunk Me: <kbd>pod trunk me</kbd>
 - Pod Lint: <kbd>pod spec lint [NAME.podspec]/pod lib lint</kbd>
 - Trunk Register: <kbd>pod trunk register rzrasel@rzrasel.org 'Rz Rasel'</kbd>
-- Trunk Push: <kbd>pod trunk push [NAME.podspec]</kbd>
+- Trunk Push: <kbd>pod trunk push/pod trunk push [NAME.podspec]</kbd>
 - <kbd></kbd>
 - <kbd></kbd>
 
