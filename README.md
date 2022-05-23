@@ -8,6 +8,21 @@ Office SM iOS Swift shurjoPay SDK V2
 [![License](https://img.shields.io/cocoapods/l/ShurjopaySdk.svg?style=flat)](https://cocoapods.org/pods/ShurjopaySdk)
 [![Platform](https://img.shields.io/cocoapods/p/ShurjopaySdk.svg?style=flat)](https://cocoapods.org/pods/ShurjopaySdk)
 
+### GIT Command
+```git_command
+git init
+git remote add origin https://github.com/rzrasel/office-sm-ios-swift-shurjopay-sdk-v2.git
+git remote -v
+git fetch && git checkout master
+git add .
+git commit -m "Add Readme & Git Commit File"
+git pull
+git push --all
+git status
+git remote show origin
+git status
+```
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
