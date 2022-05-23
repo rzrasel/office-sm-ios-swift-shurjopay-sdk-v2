@@ -39,7 +39,13 @@ pod init
 ```
 
 ```ruby_shurjoPaySdk
-pod 'ShurjopaySdk'
+pod "ShurjopaySdk"
+// Or
+pod "ShurjopaySdk", "~> 1.0"
+```
+
+```ruby_podInstall
+pod install
 ```
 
 ## Author
