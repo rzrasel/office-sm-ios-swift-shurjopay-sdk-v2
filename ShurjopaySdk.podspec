@@ -1,3 +1,5 @@
+# Created by Rz Rasel on 2022-05-10
+
 Pod::Spec.new do |s|
   s.name             = "ShurjopaySdk"
   s.version          = "1.0.11"

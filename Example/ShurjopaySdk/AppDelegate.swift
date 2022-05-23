@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  ShurjopaySdk
 //
-//  Created by shurjoMukhiDev on 05/10/2022.
+//  Created by Rz Rasel on 2022-05-05
 //  Copyright (c) 2022 shurjoMukhiDev. All rights reserved.
 //
 
