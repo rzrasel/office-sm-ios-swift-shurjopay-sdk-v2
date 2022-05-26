@@ -38,6 +38,8 @@ it, simply add the following line to your Podfile:
 pod init
 ```
 
+`arch -x86_64` <kbd>arch -x86_64 pod init</kbd>
+
 ```ruby_shurjoPaySdk
 pod "ShurjopaySdk"
 // Or
@@ -47,6 +49,8 @@ pod "ShurjopaySdk", "~> 1.0"
 ```ruby_podInstall
 pod install
 ```
+
+`arch -x86_64` <kbd>arch -x86_64 pod install</kbd>
 
 Import package:
 
