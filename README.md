@@ -1,5 +1,6 @@
 # office-sm-ios-swift-shurjopay-sdk-v2
 Office SM iOS Swift shurjoPay SDK V2
+Swift SDK shurjoPay v1.0.0
 
 # ShurjopaySdk
 
