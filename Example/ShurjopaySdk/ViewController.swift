@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     }
     
     func onShurjoPaySdk(viewController: UIViewController) {
-        var requestData = RequestData(
+        let requestData = RequestData(
             username:           "username",
             password:           "password",
             prefix:             "prefix",
