@@ -156,7 +156,7 @@ class ShurjopaySdkPlugin {
             sPayViewController.setListener(onSuccess: self.onSuccess!,
                                            onProgressView: self.onProgressView!,
                                            onFailed: self.onFailed!)
-            sPayViewController.onLoadData(sdkType: sdkType!, tokenData: tokenData, checkoutData: checkoutData)
+            sPayViewController.onLoadData(sdkType: sdkType!, requestData: requestData!, tokenData: tokenData, checkoutData: checkoutData)
             self.viewController!.present(sPayViewController, animated: true, completion: nil)
         }
     }

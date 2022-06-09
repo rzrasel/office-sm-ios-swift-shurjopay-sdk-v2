@@ -34,17 +34,16 @@ class ViewController: UIViewController {
     }
     
     func onShurjoPaySdk(viewController: UIViewController) {
-        let orderId = Int.random(in: 0 ... 1000)
-        let requestData = RequestData(
+        var requestData = RequestData(
             username:           "username",
             password:           "password",
             prefix:             "prefix",
-            currency:           "currency",
-            amount:             0,
-            orderId:            "",
+            currency:           "BDT",
+            amount:             1,
+            orderId:            "orderId",
             discountAmount:     0,
             discPercent:        0,
-            customerName:       "customerName",
+            customerName:       "shurjoMukhi Ltd SDK Test",
             customerPhone:      "customerPhone",
             customerEmail:      "customerEmail",
             customerAddress:    "customerAddress",
@@ -52,14 +51,15 @@ class ViewController: UIViewController {
             customerState:      "customerState",
             customerPostcode:   "customerPostcode",
             customerCountry:    "customerCountry",
-            returnUrl:          "returnUrl",
-            cancelUrl:          "cancelUrl",
-            clientIp:           "clientIp",
+            returnUrl:          "https://www.sandbox.shurjopayment.com/return_url",
+            cancelUrl:          "https://www.sandbox.shurjopayment.com/cancel_url",
+            clientIp:           "127.0.0.1",
             value1:             "value1",
             value2:             "value2",
             value3:             "value3",
             value4:             "value4"
         )
+        //requestData = getRequestDataSpSandbox()
         shurjopaySdk = ShurjopaySdk(onSuccess: onSuccess, onFailed: onFailed)
         shurjopaySdk?.makePayment(
             uiProperty:     UIProperty(viewController: self,
@@ -86,37 +86,4 @@ class ViewController: UIViewController {
             print("DEBUG_LOG_PRINT: HTTP ERROR \(String(describing: message.message))")
         }
     }
-    /*func onShurjoPaySdkOld01(viewController: UIViewController) {
-        let requestData = RequestData(
-            username:           "username",
-            password:           "password",
-            prefix:             "prefix",
-            currency:           "currency",
-            amount:             0,
-            orderId:            "",
-            discountAmount:     0,
-            discPercent:        0,
-            customerName:       "customerName",
-            customerPhone:      "customerPhone",
-            customerEmail:      "customerEmail",
-            customerAddress:    "customerAddress",
-            customerCity:       "customerCity",
-            customerState:      "customerState",
-            customerPostcode:   "customerPostcode",
-            customerCountry:    "customerCountry",
-            returnUrl:          "returnUrl",
-            cancelUrl:          "cancelUrl",
-            clientIp:           "clientIp",
-            value1:             "value1",
-            value2:             "value2",
-            value3:             "value3",
-            value4:             "value4"
-        )
-        shurjopaySdk = ShurjopaySdk(onSuccess: onSuccess, onFailed: onFailed)
-        shurjopaySdk?.makePayment(
-            viewController: self,
-            sdkType:        AppConstants.SDK_TYPE_SANDBOX,
-            requestData:    requestData
-        )
-    }*/
 }

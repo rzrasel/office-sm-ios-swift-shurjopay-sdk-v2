@@ -17,9 +17,11 @@ class ShurjoPayViewController: UIViewController {
     var onFailed:       onFailed?
     var onProgressView: onProgressView?
     private let webView         = WKWebView()
+    private var requestData:    RequestData?
     private var tokenData:      TokenData?
     private var checkoutData:   CheckoutData?
     private var sdkType:        String?
+    private var isSuccessUrl:   Bool = false
     //
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +34,8 @@ class ShurjoPayViewController: UIViewController {
         self.onProgressView = onProgressView
         self.onFailed       = onFailed
     }
-    func onLoadData(sdkType: String, tokenData: TokenData, checkoutData: CheckoutData) {
+    func onLoadData(sdkType: String, requestData: RequestData, tokenData: TokenData, checkoutData: CheckoutData) {
+        self.requestData    = requestData
         self.sdkType        = sdkType
         self.tokenData      = tokenData
         self.checkoutData   = checkoutData
@@ -54,7 +57,7 @@ class ShurjoPayViewController: UIViewController {
 }
 extension ShurjoPayViewController: WKNavigationDelegate, UIWebViewDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        //print("Finished navigating to url \(String(describing: webView.url))")
+        //print("Finished navigating to url \(String(describing: webView.url)) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)")
         /*if ((webView.url?.absoluteString.contains("facebook.com")) != nil) {
             // do something here
         }*/
@@ -62,6 +65,7 @@ extension ShurjoPayViewController: WKNavigationDelegate, UIWebViewDelegate {
             return
         }*/
         let url = webView.url?.path
+        //print("Finished navigating to url \(String(describing: url)) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)")
         if url!.containsIgnoringCase(find: "cancel_url") {
             self.onFailed?(ErrorSuccess(
                 message:    "Error: Cancel by user CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
@@ -71,16 +75,20 @@ extension ShurjoPayViewController: WKNavigationDelegate, UIWebViewDelegate {
             return
         }
         if url!.containsIgnoringCase(find: "return_url") || url!.containsIgnoringCase(find: "order_id") {
+            isSuccessUrl = true
             verifyPayment(sdkType: sdkType!)
         }
     }
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        /*let url = webView.url?.path
+        print("Error navigating to url \(String(describing: url)) \(isSuccessUrl) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)")*/
         if let urlError = error as? URLError {
             //webView.loadHTMLString(urlError.localizedDescription, baseURL: urlError.failingURL)
             //print("DEBUG_LOG_PRINT: WEB LOAD ERROR \(urlError.errorCode)")
+            //print("DEBUG_LOG_PRINT: WEB LOAD ERROR \(String(describing: urlError.failureURLString))")
             self.onFailed?(ErrorSuccess(
-                message:    "Error: Provided cancel url not valid \(urlError.errorCode) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
-                esType:     ErrorSuccess.ESType.HTTP_LOAD_ERROR
+                message:    "Error: Provided returnUrl or successUrl not valid \(urlError.errorCode) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
+                esType:     ErrorSuccess.ESType.HTTP_URL_LOAD_ERROR
             ))
             self.dismiss(animated: true, completion: nil)
             return
