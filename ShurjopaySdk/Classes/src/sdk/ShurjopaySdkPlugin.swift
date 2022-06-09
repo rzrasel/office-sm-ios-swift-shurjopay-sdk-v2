@@ -39,7 +39,7 @@ class ShurjopaySdkPlugin {
         guard onCheckInternet() == true else {
             hideProgressView()
             self.onFailed?(ErrorSuccess(
-                message:    "Error in internet connection",
+                message:    "ERROR: Error in internet connection CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                 esType:     ErrorSuccess.ESType.INTERNET_ERROR
             ))
             return
@@ -48,7 +48,7 @@ class ShurjopaySdkPlugin {
     }
     private func getToken() {
         let tokenUrl = ApiClient.getApiClient(sdkType: sdkType!).getToken()
-        print("DEBUG_LOG_PRINT: HTTP_METHOD: \(HttpMethod.POST.rawValue) SDK_TYPE: \(String(describing: sdkType)) TOKEN_URL: \(tokenUrl)")
+        //print("DEBUG_LOG_PRINT: HTTP_METHOD: \(HttpMethod.POST.rawValue) SDK_TYPE: \(String(describing: sdkType)) TOKEN_URL: \(tokenUrl) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)")
         let parameters: [String: Any] = [
             "username": requestData?.username ?? "",
             "password": requestData?.password ?? ""
@@ -84,14 +84,14 @@ class ShurjopaySdkPlugin {
             tokenData.spCode        = jsonData!["sp_code"] as? Int
             tokenData.massage       = jsonData!["massage"] as? String
             tokenData.expiresIn     = jsonData!["expires_in"] as? Int
-            //print("DEBUG_LOG_PRINT: executeUrl: \(String(describing: tokenData.executeUrl))")
+            //print("DEBUG_LOG_PRINT: executeUrl: \(String(describing: tokenData.executeUrl)) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)")
             self.getExecuteUrl(tokenData: tokenData)
         }
     }
     private func getExecuteUrl(tokenData: TokenData) {
         let checkoutUrl = ApiClient.getApiClient(sdkType: sdkType!).checkout()
         //let checkoutUrl = "https://httpbin.org/post"
-        print("DEBUG_LOG_PRINT: HTTP_METHOD: \(HttpMethod.POST.rawValue) SDK_TYPE: \(String(describing: sdkType)) CHECKOUT_URL: \(checkoutUrl)")
+        //print("DEBUG_LOG_PRINT: HTTP_METHOD: \(HttpMethod.POST.rawValue) SDK_TYPE: \(String(describing: sdkType)) CHECKOUT_URL: \(checkoutUrl) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)")
         let parameters: [String: Any] = [
             "token":                tokenData.token!,
             "store_id":             tokenData.storeId!,
@@ -124,22 +124,22 @@ class ShurjopaySdkPlugin {
             guard error == nil else {
                 hideProgressView()
                 self.onFailed?(ErrorSuccess(
-                    message:    error!.localizedDescription,
+                    message:    "ERROR: \(error!.localizedDescription) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                     esType:     ErrorSuccess.ESType.HTTP_ERROR
                 ))
                 return
             }
-            Utils.onPrintResponseData(responseData: data!)
+            //Utils.onPrintResponseData(responseData: data!)
             var checkoutData: CheckoutData?
             do {
                 let decoder = JSONDecoder()
                 checkoutData = try decoder.decode(CheckoutData.self, from: data!)
-                print("DEBUG_LOG_PRINT: CHECKOUT_DATA: \(String(describing: checkoutData))")
+                //print("DEBUG_LOG_PRINT: CHECKOUT_DATA: \(String(describing: checkoutData)) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)")
             } catch {
                 //print(error.localizedDescription)
                 hideProgressView()
                 self.onFailed?(ErrorSuccess(
-                    message:    error.localizedDescription,
+                    message:    "ERROR: \(error.localizedDescription) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                     esType:     ErrorSuccess.ESType.HTTP_ERROR
                 ))
                 return
@@ -185,7 +185,7 @@ extension ShurjopaySdkPlugin {
             return false
         }
         self.onSuccess?(nil, ErrorSuccess(
-            message:    "Net connected",
+            message:    "SUCCESS: Net connected CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
             esType:     ErrorSuccess.ESType.INTERNET_SUCCESS
         ))
         return true
@@ -226,7 +226,7 @@ extension ShurjopaySdkPlugin {
             (data: Data?, error: Error?) in
             guard error == nil else {
                 self.onFailed?(ErrorSuccess(
-                    message:    error!.localizedDescription,
+                    message:    "ERROR: \(error!.localizedDescription) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                     esType:     ErrorSuccess.ESType.HTTP_ERROR
                 ))
                 return
@@ -240,7 +240,7 @@ extension ShurjopaySdkPlugin {
             } catch {
                 //print(error.localizedDescription)
                 self.onFailed?(ErrorSuccess(
-                    message:    error.localizedDescription,
+                    message:    "ERROR: \(error.localizedDescription) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                     esType:     ErrorSuccess.ESType.HTTP_ERROR
                 ))
                 return

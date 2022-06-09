@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "ShurjopaySdk"
-  s.version          = "1.0.11"
+  s.version          = "1.0.12"
   s.summary          = "shurjopaySdk is a payment getway sdk"
 
 # This description is used to generate tags and improve search results.

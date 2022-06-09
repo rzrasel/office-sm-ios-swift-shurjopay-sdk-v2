@@ -64,7 +64,7 @@ extension ShurjoPayViewController: WKNavigationDelegate, UIWebViewDelegate {
         let url = webView.url?.path
         if url!.containsIgnoringCase(find: "cancel_url") {
             self.onFailed?(ErrorSuccess(
-                message:    "Cancel by user",
+                message:    "Error: Cancel by user CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                 esType:     ErrorSuccess.ESType.HTTP_CANCEL
             ))
             self.dismiss(animated: true, completion: nil)
@@ -74,6 +74,20 @@ extension ShurjoPayViewController: WKNavigationDelegate, UIWebViewDelegate {
             verifyPayment(sdkType: sdkType!)
         }
     }
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        if let urlError = error as? URLError {
+            //webView.loadHTMLString(urlError.localizedDescription, baseURL: urlError.failingURL)
+            //print("DEBUG_LOG_PRINT: WEB LOAD ERROR \(urlError.errorCode)")
+            self.onFailed?(ErrorSuccess(
+                message:    "Error: Provided cancel url not valid \(urlError.errorCode) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
+                esType:     ErrorSuccess.ESType.HTTP_LOAD_ERROR
+            ))
+            self.dismiss(animated: true, completion: nil)
+            return
+        } else {
+            //webView.loadHTMLString(error.localizedDescription, baseURL: URL(string: "data:text/html"))
+        }
+    }
 }
 extension ShurjoPayViewController {
     func verifyPayment(sdkType: String) {
@@ -81,7 +95,7 @@ extension ShurjoPayViewController {
         let verifyUrl = ApiClient.getApiClient(sdkType: sdkType).verify()
         //let verifyUrl = "https://rzrasel.000webhostapp.com/plugins.php"
         //let verifyUrl = "http://192.168.10.61/plugins.php"
-        print("DEBUG_LOG_PRINT: VERIFY_URL: \(verifyUrl)")
+        //print("DEBUG_LOG_PRINT: VERIFY_URL: \(verifyUrl) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)")
         let parameters: [String: Any] = [
             "order_id": "\(checkoutData?.spOrderId! ?? "")"
         ]
@@ -90,13 +104,13 @@ extension ShurjoPayViewController {
             (data: Data?, error: Error?) in
             guard error == nil else {
                 self.onFailed?(ErrorSuccess(
-                    message:    error!.localizedDescription,
+                    message:    "ERROR: \(error!.localizedDescription) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                     esType:     ErrorSuccess.ESType.HTTP_ERROR
                 ))
                 return
             }
             /*let str = String(decoding: data!, as: UTF8.self)
-            print("DEBUG_LOG_PRINT: DATA_RESPONS \(str)")*/
+            print("DEBUG_LOG_PRINT: DATA_RESPONS \(str) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)")*/
             var transactionDataList: [TransactionData] = []
             do {
                 let decoder = JSONDecoder()
@@ -106,14 +120,14 @@ extension ShurjoPayViewController {
             catch {
                 //print (error)
                 self.onFailed?(ErrorSuccess(
-                    message:    error.localizedDescription,
+                    message:    "ERROR: \(error.localizedDescription) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                     esType:     ErrorSuccess.ESType.HTTP_ERROR
                 ))
                 return
             }
             if(transactionDataList.count < 1) {
                 self.onFailed?(ErrorSuccess(
-                    message:    "Transaction data not found",
+                    message:    "ERROR: Transaction data not found CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                     esType:     ErrorSuccess.ESType.HTTP_ERROR
                 ))
                 return
@@ -121,13 +135,13 @@ extension ShurjoPayViewController {
             let transactionData: TransactionData = transactionDataList[transactionDataList.count - 1]
             if(transactionData.spCode == 1000) {
                 self.onSuccess?(transactionData, ErrorSuccess(
-                    message:    "Transaction success",
+                    message:    "SUCCESS: Transaction success CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                     esType:     ErrorSuccess.ESType.HTTP_SUCCESS
                 ))
                 return
             } else {
                 self.onFailed?(ErrorSuccess(
-                    message:    "Transaction failed sp code",
+                    message:    "ERROR: Transaction failed sp code CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                     esType:     ErrorSuccess.ESType.HTTP_ERROR
                 ))
                 return

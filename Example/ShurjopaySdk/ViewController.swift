@@ -36,25 +36,25 @@ class ViewController: UIViewController {
     func onShurjoPaySdk(viewController: UIViewController) {
         let orderId = Int.random(in: 0 ... 1000)
         let requestData = RequestData(
-            username:           "sp_sandbox",
-            password:           "pyyk97hu&6u6",
-            prefix:             "NOK",
-            currency:           "BDT",
-            amount:             1,
-            orderId:            "NOK\(orderId)",
+            username:           "username",
+            password:           "password",
+            prefix:             "prefix",
+            currency:           "currency",
+            amount:             0,
+            orderId:            "",
             discountAmount:     0,
             discPercent:        0,
-            customerName:       "shurjoMukhi Ltd SDK Test",
-            customerPhone:      "01711486915",
+            customerName:       "customerName",
+            customerPhone:      "customerPhone",
             customerEmail:      "customerEmail",
             customerAddress:    "customerAddress",
             customerCity:       "customerCity",
             customerState:      "customerState",
             customerPostcode:   "customerPostcode",
             customerCountry:    "customerCountry",
-            returnUrl:          "https://www.sandbox.shurjopayment.com/return_url",
-            cancelUrl:          "https://www.sandbox.shurjopayment.com/cancel_url",
-            clientIp:           "127.0.0.1",
+            returnUrl:          "returnUrl",
+            cancelUrl:          "cancelUrl",
+            clientIp:           "clientIp",
             value1:             "value1",
             value2:             "value2",
             value3:             "value3",
@@ -80,6 +80,8 @@ class ViewController: UIViewController {
         if(message.esType == ErrorSuccess.ESType.INTERNET_ERROR) {
             print("DEBUG_LOG_PRINT: INTERNET ERROR \(String(describing: message.message))")
             //alertService.alert(viewController: self, message: message.message!)
+        } else if(message.esType == ErrorSuccess.ESType.HTTP_CANCEL) {
+            print("DEBUG_LOG_PRINT: HTTP CANCEL ERROR \(String(describing: message.message))")
         } else {
             print("DEBUG_LOG_PRINT: HTTP ERROR \(String(describing: message.message))")
         }
