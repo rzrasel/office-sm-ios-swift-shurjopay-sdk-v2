@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     }
     
     func onShurjoPaySdk(viewController: UIViewController) {
-        var requestData = RequestData(
+        let requestData = RequestData(
             username:           "username",
             password:           "password",
             prefix:             "prefix",
@@ -59,7 +59,6 @@ class ViewController: UIViewController {
             value3:             "value3",
             value4:             "value4"
         )
-        requestData = getRequestDataSpSandbox()
         shurjopaySdk = ShurjopaySdk(onSuccess: onSuccess, onFailed: onFailed)
         shurjopaySdk?.makePayment(
             uiProperty:     UIProperty(viewController: self,
@@ -85,33 +84,5 @@ class ViewController: UIViewController {
         } else {
             print("DEBUG_LOG_PRINT: HTTP ERROR \(String(describing: message.message))")
         }
-    }
-    func getRequestDataSpSandbox() -> RequestData {
-        let orderId = Int.random(in: 0 ... 1000)
-        return RequestData(
-            username:           "sp_sandbox",
-            password:           "pyyk97hu&6u6",
-            prefix:             "NOK",
-            currency:           "BDT",
-            amount:             1,
-            orderId:            "NOK\(orderId)",
-            discountAmount:     0,
-            discPercent:        0,
-            customerName:       "shurjoMukhi Ltd SDK Test",
-            customerPhone:      "01711486915",
-            customerEmail:      "customerEmail",
-            customerAddress:    "customerAddress",
-            customerCity:       "customerCity",
-            customerState:      "customerState",
-            customerPostcode:   "customerPostcode",
-            customerCountry:    "customerCountry",
-            returnUrl:          "https://www.esandbox.shurjopayment.com/return_url",
-            cancelUrl:          "https://www.esandbox.shurjopayment.com/cancel_url",
-            clientIp:           "127.0.0.1",
-            value1:             "value1",
-            value2:             "value2",
-            value3:             "value3",
-            value4:             "value4"
-        )
     }
 }
