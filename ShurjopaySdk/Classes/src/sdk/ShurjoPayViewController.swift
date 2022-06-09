@@ -82,12 +82,29 @@ extension ShurjoPayViewController: WKNavigationDelegate, UIWebViewDelegate {
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         /*let url = webView.url?.path
         print("Error navigating to url \(String(describing: url)) \(isSuccessUrl) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)")*/
+        let returnUrl = (requestData?.returnUrl)!
+        let cancelUrl = (requestData?.cancelUrl)!
         if let urlError = error as? URLError {
             //webView.loadHTMLString(urlError.localizedDescription, baseURL: urlError.failingURL)
             //print("DEBUG_LOG_PRINT: WEB LOAD ERROR \(urlError.errorCode)")
             //print("DEBUG_LOG_PRINT: WEB LOAD ERROR \(String(describing: urlError.failureURLString))")
+            if urlError.failureURLString!.containsIgnoringCase(find: returnUrl) {
+                self.onFailed?(ErrorSuccess(
+                    message:    "Error: Provided returnUrl not valid \(urlError.errorCode) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
+                    esType:     ErrorSuccess.ESType.HTTP_URL_LOAD_ERROR
+                ))
+                self.dismiss(animated: true, completion: nil)
+                return
+            } else if urlError.failureURLString!.containsIgnoringCase(find: cancelUrl) {
+                self.onFailed?(ErrorSuccess(
+                    message:    "Error: Provided cancelUrl not valid \(urlError.errorCode) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
+                    esType:     ErrorSuccess.ESType.HTTP_URL_LOAD_ERROR
+                ))
+                self.dismiss(animated: true, completion: nil)
+                return
+            }
             self.onFailed?(ErrorSuccess(
-                message:    "Error: Provided returnUrl or successUrl not valid \(urlError.errorCode) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
+                message:    "Error: Provided url not valid \(urlError.errorCode) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                 esType:     ErrorSuccess.ESType.HTTP_URL_LOAD_ERROR
             ))
             self.dismiss(animated: true, completion: nil)
