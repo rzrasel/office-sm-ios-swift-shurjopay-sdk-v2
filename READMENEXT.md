@@ -131,9 +131,9 @@ Rz Rasel
 
 ### CocoaPods Trunk
 - Trunk Me: <kbd>pod trunk me</kbd>
-- Pod Lint: <kbd>pod spec lint [NAME.podspec]/pod lib lint</kbd>
+- Pod Lint: <kbd>pod spec lint [NAME.podspec]</kbd> or `pod lib lint`
 - Trunk Register: <kbd>pod trunk register rzrasel@rzrasel.org 'Rz Rasel'</kbd>
-- Trunk Push: <kbd>pod trunk push/pod trunk push [NAME.podspec]</kbd>
+- Trunk Push: <kbd>pod trunk push</kbd> or `pod trunk push [NAME.podspec]`
 - <kbd></kbd>
 - <kbd></kbd>
 
