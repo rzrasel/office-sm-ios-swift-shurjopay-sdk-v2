@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 shurjoPaySdk is a payment getway sdk, very easy and useful for developer
                        DESC
 
-  s.homepage         = "https://github.com/rzrasel/office-sm-ios-swift-shurjopay-sdk-v2"
+  s.homepage         = "https://github.com/shurjoPay-Plugins/ios-swift"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = { :type => "MIT", :file => "LICENSE" }
   s.author           = { "shurjoMukhi Ltd" => "shurjomukhidev@gmail.com" }
