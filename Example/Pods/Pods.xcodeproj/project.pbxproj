@@ -162,7 +162,6 @@
 		5223F2C7282BCECD00357087 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				523256462835298900763E82 /* view */,
 				5223F2CB282BCECD00357087 /* model */,
 				5223F2C8282BCECD00357087 /* sdk */,
 				5223F2D0282BCFAB00357087 /* utils */,
@@ -207,13 +206,6 @@
 				52B77A0F28325AFC00646252 /* AlertService.swift */,
 			);
 			path = utils;
-			sourceTree = "<group>";
-		};
-		523256462835298900763E82 /* view */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = view;
 			sourceTree = "<group>";
 		};
 		5511575A071E6BEBB2B88FADEBBEB02C /* Pod */ = {

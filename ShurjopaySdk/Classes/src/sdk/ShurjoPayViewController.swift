@@ -64,9 +64,9 @@ extension ShurjoPayViewController: WKNavigationDelegate, UIWebViewDelegate {
         /*guard let url = webView.url?.path else {
             return
         }*/
-        let url = webView.url?.path
+        let url = webView.url?.absoluteString
         //print("Finished navigating to url \(String(describing: url)) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)")
-        if url!.containsIgnoringCase(find: "cancel_url") {
+        /*if url!.containsIgnoringCase(find: "cancel_url") {
             self.onFailed?(ErrorSuccess(
                 message:    "Error: Cancel by user CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                 esType:     ErrorSuccess.ESType.HTTP_CANCEL
@@ -77,11 +77,19 @@ extension ShurjoPayViewController: WKNavigationDelegate, UIWebViewDelegate {
         if url!.containsIgnoringCase(find: "return_url") || url!.containsIgnoringCase(find: "order_id") {
             isSuccessUrl = true
             verifyPayment(sdkType: sdkType!)
+        }*/
+        //print("DEBUG_LOG_PRINT: enert outside if condition \(String(describing: url))")
+        let returnUrl = (requestData?.returnUrl)!
+        let cancelUrl = (requestData?.cancelUrl)!
+        if url!.containsIgnoringCase(find: returnUrl) || url!.containsIgnoringCase(find: cancelUrl) {
+            isSuccessUrl = true
+            //print("DEBUG_LOG_PRINT: enert inside if condition")
+            verifyPayment(sdkType: sdkType!)
         }
     }
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        /*let url = webView.url?.path
-        print("Error navigating to url \(String(describing: url)) \(isSuccessUrl) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)")*/
+        //let url = webView.url?.path
+        //print("Error navigating to url \(String(describing: url)) \(isSuccessUrl) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)")
         let returnUrl = (requestData?.returnUrl)!
         let cancelUrl = (requestData?.cancelUrl)!
         if let urlError = error as? URLError {
@@ -116,18 +124,19 @@ extension ShurjoPayViewController: WKNavigationDelegate, UIWebViewDelegate {
 }
 extension ShurjoPayViewController {
     func verifyPayment(sdkType: String) {
-        self.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
         let verifyUrl = ApiClient.getApiClient(sdkType: sdkType).verify()
         //let verifyUrl = "https://rzrasel.000webhostapp.com/plugins.php"
         //let verifyUrl = "http://192.168.10.61/plugins.php"
         //print("DEBUG_LOG_PRINT: VERIFY_URL: \(verifyUrl) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)")
         let parameters: [String: Any] = [
-            "order_id": "\(checkoutData?.spOrderId! ?? "")"
+            "order_id": checkoutData?.spOrderId! ?? ""
         ]
         let header = (tokenData?.tokenType)! + " " + (tokenData?.token)!
         Utils.onHttpRequest(httpMethod: HttpMethod.POST, location: verifyUrl, parameters: parameters, header: header, isEncoded: true) {
             (data: Data?, error: Error?) in
             guard error == nil else {
+                self.dismissWindow()
                 self.onFailed?(ErrorSuccess(
                     message:    "ERROR: \(error!.localizedDescription) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                     esType:     ErrorSuccess.ESType.HTTP_ERROR
@@ -143,6 +152,7 @@ extension ShurjoPayViewController {
                 //print("DEBUG_LOG_PRINT: TransactionData: \(transactionDataList)")
             }
             catch {
+                self.dismissWindow()
                 //print (error)
                 self.onFailed?(ErrorSuccess(
                     message:    "ERROR: \(error.localizedDescription) CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
@@ -151,6 +161,7 @@ extension ShurjoPayViewController {
                 return
             }
             if(transactionDataList.count < 1) {
+                self.dismissWindow()
                 self.onFailed?(ErrorSuccess(
                     message:    "ERROR: Transaction data not found CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                     esType:     ErrorSuccess.ESType.HTTP_ERROR
@@ -159,17 +170,28 @@ extension ShurjoPayViewController {
             }
             let transactionData: TransactionData = transactionDataList[transactionDataList.count - 1]
             if(transactionData.spCode == 1000) {
+                self.dismissWindow()
                 self.onSuccess?(transactionData, ErrorSuccess(
                     message:    "SUCCESS: Transaction success CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                     esType:     ErrorSuccess.ESType.HTTP_SUCCESS
                 ))
                 return
             } else {
+                self.dismissWindow()
                 self.onFailed?(ErrorSuccess(
                     message:    "ERROR: Transaction failed sp code CODE: \((#file as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")) \(#function) \(#line)",
                     esType:     ErrorSuccess.ESType.HTTP_ERROR
                 ))
                 return
+            }
+        }
+    }
+    
+    func dismissWindow() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            // Perform task
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }
